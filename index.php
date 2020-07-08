@@ -1,5 +1,4 @@
 <?php
-    include "getTemperature.php";
     include "getUpsMessages.php";
     include "plot.php"
 ?>
@@ -38,8 +37,10 @@
             $to = $cc = $cc1 = "";
             $message = "";
             $threshold = "";
+            $temperature = "";
             getUpsMessages($x, $y, $threshold, $username, $mailserver, $to, $cc, $cc1, $message);
-            $temperature = getTemperature();
+            if(count($y) > 0)
+                $temperature = $y[count($y)-1];
             if((float)$temperature > (float)$threshold) {
                 echo "ALARM! Current UPS-Room temperature is: ".$temperature."°C<br>";
                 echo "Threshold value: ".$threshold."°C<br>";
